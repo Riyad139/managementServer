@@ -2,7 +2,7 @@ import { Request, Response, Errback } from "express";
 
 import user from "../Models/users";
 
-exports.getAllUser = async (req: Request, res: Response) => {
+export const getAllUser = async (req: Request, res: Response) => {
   try {
     const data = await user.find();
     res.send(data);
@@ -11,7 +11,7 @@ exports.getAllUser = async (req: Request, res: Response) => {
   }
 };
 
-exports.createUser = async (req: Request, res: Response) => {
+export const createUser = async (req: Request, res: Response) => {
   const data = {
     name: req.body.userName,
     email: req.body.userEmail,
@@ -22,7 +22,7 @@ exports.createUser = async (req: Request, res: Response) => {
   res.send("success");
 };
 
-exports.getUserById = async (req: Request, res: Response) => {
+export const getUserById = async (req: Request, res: Response) => {
   const id = req.params.uid;
   try {
     const userId = await user.find({ _id: id });
@@ -32,7 +32,7 @@ exports.getUserById = async (req: Request, res: Response) => {
   }
 };
 
-exports.deletUserById = async (req: Request, res: Response) => {
+export const deletUserById = async (req: Request, res: Response) => {
   const id = req.params.uid;
   try {
     const userId = await user.deleteOne({ _id: id });
@@ -42,7 +42,7 @@ exports.deletUserById = async (req: Request, res: Response) => {
   }
 };
 
-exports.updateUserById = async (req: Request, res: Response) => {
+export const updateUserById = async (req: Request, res: Response) => {
   try {
     const id = req.params.uid;
     const userById = await user.findOne({ _id: id });

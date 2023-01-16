@@ -17,18 +17,24 @@ const model = new mongoose.Schema({
   projects: [String],
   members: [
     [
-      {
-        userId: String,
-        roles: String,
-      },
+      new mongoose.Schema(
+        {
+          userId: String,
+          roles: String,
+        },
+        { _id: false }
+      ),
     ],
   ],
   createdAt: {
+    type: Date,
     default: () => new Date(),
   },
   updatedAt: {
+    type: Date,
     default: () => new Date(),
   },
+
   createdBy: {
     type: String,
   },
@@ -36,4 +42,4 @@ const model = new mongoose.Schema({
 
 const company = mongoose.model("company", model);
 
-module.exports = company;
+export default company;
