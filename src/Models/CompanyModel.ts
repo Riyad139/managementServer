@@ -1,4 +1,18 @@
-import mongoose from "mongoose";
+import mongoose, { Schema, Types, Model } from "mongoose";
+export interface Imember {
+  userId: string;
+  roles: string;
+}
+export interface iCompany {
+  domain?: string;
+  name?: string;
+  logoUrl?: string;
+  projects?: [string];
+  members?: Imember[];
+  createdAt?: Date;
+  updatedAt?: Date;
+  createdBy?: string;
+}
 
 const model = new mongoose.Schema({
   domain: {
@@ -15,17 +29,11 @@ const model = new mongoose.Schema({
     type: String,
   },
   projects: [String],
-  members: [
-    [
-      new mongoose.Schema(
-        {
-          userId: String,
-          roles: String,
-        },
-        { _id: false }
-      ),
-    ],
-  ],
+  members: {
+    type: Array,
+    default: [],
+  },
+
   createdAt: {
     type: Date,
     default: () => new Date(),
@@ -40,6 +48,6 @@ const model = new mongoose.Schema({
   },
 });
 
-const company = mongoose.model("company", model);
+const company = mongoose.model<iCompany>("company", model);
 
 export default company;
