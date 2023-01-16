@@ -36,4 +36,4 @@ const model = new mongoose.Schema({
 
 const company = mongoose.model("company", model);
 
-module.exports = company;
+export default company;

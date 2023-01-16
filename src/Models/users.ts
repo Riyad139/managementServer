@@ -1,4 +1,12 @@
-import mongoose from "mongoose";
+import mongoose, { Model, Document } from "mongoose";
+
+export interface Iuser {
+  name?: string;
+  email?: string;
+  profilePicture?: string;
+  descriptions?: string;
+}
+export interface IuserDoc extends Iuser, Document {}
 
 const userModel = new mongoose.Schema({
   name: String,
