@@ -4,7 +4,15 @@ import {
   createCompany,
   getComapny,
   getComapnyById,
+  updateCompanyById,
 } from "../Controllers/companiesController";
+import {
+  createProject,
+  deleteProjectById,
+  getAllProject,
+  getProjectById,
+  updateProjectById,
+} from "../Controllers/projectsController";
 import {
   createUser,
   deletUserById,
@@ -24,9 +32,17 @@ router.route("/user").get(getAllUser).post(createUser);
 ////////////////////////////////////////////////////////////////////////////////////////
 ///route for comapnies /////////////////////////////////////////////////////////////////
 router.route("/company/addmembers/:id").post(addMembersToCompany);
-router.route("/company/:id").get(getComapnyById);
+router.route("/company/:id").get(getComapnyById).put(updateCompanyById);
 router.route("/company").get(getComapny).post(createCompany);
 
 ///////////////////////////////////////////////////////////////////////////////////////
+///route for projects//////////////////////////////////////////////////////////////////
+
+router.route("/projects").get(getAllProject).post(createProject);
+router
+  .route("/projects/:id")
+  .get(getProjectById)
+  .delete(deleteProjectById)
+  .put(updateProjectById);
 
 export default router;
