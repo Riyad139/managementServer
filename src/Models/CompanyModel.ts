@@ -1,9 +1,9 @@
-import mongoose, { Schema, Types, Model } from "mongoose";
+import mongoose, { Document } from "mongoose";
 export interface Imember {
   userId: string;
   roles: string;
 }
-export interface iCompany {
+export interface Icompany {
   domain?: string;
   name?: string;
   logoUrl?: string;
@@ -14,40 +14,43 @@ export interface iCompany {
   createdBy?: string;
 }
 
-const model = new mongoose.Schema({
-  domain: {
-    type: String,
-    unique: true,
-    require: [true, "Must have a domain name"],
-  },
-  name: {
-    type: String,
-    unique: true,
-    require: [true, "Must have a  name"],
-  },
-  logoUrl: {
-    type: String,
-  },
-  projects: [String],
-  members: {
-    type: Array,
-    default: [],
-  },
+export interface IcompayDoc extends Icompany, Document {}
 
-  createdAt: {
-    type: Date,
-    default: () => new Date(),
-  },
-  updatedAt: {
-    type: Date,
-    default: () => new Date(),
-  },
+const model = new mongoose.Schema(
+  {
+    domain: {
+      type: String,
+      unique: true,
+      require: [true, "Must have a domain name"],
+    },
+    name: {
+      type: String,
+      unique: true,
+      require: [true, "Must have a  name"],
+    },
+    logoUrl: {
+      type: String,
+    },
+    projects: [String],
+    members: [
+      new mongoose.Schema(
+        {
+          userId: String,
+          role: String,
+        },
+        { _id: false }
+      ),
+    ],
 
-  createdBy: {
-    type: String,
+    createdBy: {
+      type: String,
+    },
   },
-});
+  {
+    timestamps: true,
+  }
+);
 
-const company = mongoose.model<iCompany>("company", model);
+const company = mongoose.model<IcompayDoc>("company", model);
 
 export default company;
