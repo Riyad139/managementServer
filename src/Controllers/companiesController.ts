@@ -1,4 +1,4 @@
-import company, { iCompany, Imember } from "../Models/CompanyModel";
+import company from "../Models/CompanyModel";
 
 export const getComapny: Controller = async (req, res, next) => {
   try {
@@ -24,13 +24,15 @@ export const createCompany: Controller = async (req, res, next) => {
     const data = {
       domain: req.body.domain,
       name: req.body.name,
-      logoUrl: req.body.url,
+      logoUrl: req.body.logoUrl,
       members: [{ userId: req.userr.id, role: "admin" }],
       projects: [""],
       createdBy: req.userr.name,
     };
-    await company.create(data);
-
+    const comp = await company.create(data);
+    // const member = { userId: req.userr.id, role: "admin" };
+    // company.updateOne({ _id: comp._id }, { $push: { members: member } });
+    console.log(comp);
     res.send("success");
   } catch (err: any) {
     res.send(err.message);
@@ -40,13 +42,11 @@ export const createCompany: Controller = async (req, res, next) => {
 export const addMembersToCompany: Controller = async (req, res, next) => {
   try {
     console.log(req.params.id);
-    const [comp] = await company.find({ _id: req.params.id });
-    const user = comp.members;
 
-    req.body.users?.forEach((it: Imember) => user?.push(it));
-    console.log(user);
-
-    await company.findByIdAndUpdate({ _id: req.params.id }, { members: user });
+    await company.updateOne(
+      { _id: req.params.id },
+      { $push: { members: req.body.users } }
+    );
 
     res.send("success");
     //company.findByIdAndUpdate({ _id: req.params.id });
@@ -58,6 +58,22 @@ export const addMembersToCompany: Controller = async (req, res, next) => {
 export const deleteCompanyById: Controller = async (req, res, next) => {
   try {
     await company.deleteOne({ _id: req.params.id });
+    res.send("success");
+  } catch (error: any) {
+    res.send(error.message);
+  }
+};
+
+export const updateCompanyById: Controller = async (req, res, next) => {
+  try {
+    const id = req.params.id;
+    const comp = await company.findOne({ _id: id });
+    const data = {
+      domain: req.body.domain || comp?.domain,
+      name: req.body.name || comp?.name,
+      logoUrl: req.body.logoUrl || comp?.logoUrl,
+    };
+    await company.findOneAndUpdate({ _id: id }, data);
     res.send("success");
   } catch (error: any) {
     res.send(error.message);
