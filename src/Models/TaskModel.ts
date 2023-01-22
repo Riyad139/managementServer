@@ -32,7 +32,7 @@ const TaskModel = new mongoose.Schema(
         fileId: String,
       },
     ],
-    assingTo: [String],
+    assignTo: [String],
 
     createdBy: String,
     deadLine: Date,

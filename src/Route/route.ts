@@ -13,6 +13,7 @@ import {
   getProjectById,
   updateProjectById,
 } from "../Controllers/projectsController";
+import { createTask, getAllTask } from "../Controllers/taskController";
 import {
   createUser,
   deletUserById,
@@ -44,5 +45,10 @@ router
   .get(getProjectById)
   .delete(deleteProjectById)
   .put(updateProjectById);
+
+///////////////////////////////////////////////////////////////////////////////////////
+//route for tasks ////////////////////////////////////////////////////////////////////
+
+router.route("/tasks").get(getAllTask).post(createTask);
 
 export default router;
