@@ -13,6 +13,8 @@ app.use(router);
 
 // app.get("/", router);
 
+
+
 mongoose
   .connect("mongodb://localhost:27017")
   .then((ms: any) => console.log("success"));

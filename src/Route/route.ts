@@ -7,6 +7,10 @@ import {
   updateCompanyById,
 } from "../Controllers/companiesController";
 import {
+  createMeetings,
+  getAllMeeting,
+} from "../Controllers/meetingsController";
+import {
   createProject,
   deleteProjectById,
   getAllProject,
@@ -50,5 +54,10 @@ router
 //route for tasks ////////////////////////////////////////////////////////////////////
 
 router.route("/tasks").get(getAllTask).post(createTask);
+
+/////////////////////////////////////////////////////////////////////////////////////
+///route for meetings //////////////////////////////////////////////////////////////
+
+router.route("/meetings").get(getAllMeeting).post(createMeetings);
 
 export default router;
