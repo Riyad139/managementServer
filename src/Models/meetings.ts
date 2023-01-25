@@ -8,7 +8,7 @@ const meetingModel = new mongoose.Schema({
     require: [true, "meetings require a title"],
   },
   duration: Number,
-  description: {
+  descriptions: {
     type: String,
     require: [true, "A meetings require a descriptions"],
   },

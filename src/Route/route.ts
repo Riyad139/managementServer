@@ -9,6 +9,7 @@ import {
 import {
   createMeetings,
   getAllMeeting,
+  getMeetingByDate,
 } from "../Controllers/meetingsController";
 import {
   createProject,
@@ -59,5 +60,6 @@ router.route("/tasks").get(getAllTask).post(createTask);
 ///route for meetings //////////////////////////////////////////////////////////////
 
 router.route("/meetings").get(getAllMeeting).post(createMeetings);
+router.route("/meetings/:date").get(getMeetingByDate);
 
 export default router;

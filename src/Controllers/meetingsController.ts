@@ -5,7 +5,7 @@ export const getAllMeeting: Controller = async (req, res, next) => {
     const data = await meetings.find();
     res.send(data);
   } catch (error: any) {
-    res.send(error.message);
+    res.status(501).send(error.message);
   }
 };
 
@@ -22,7 +22,7 @@ export const createMeetings: Controller = async (req, res, next) => {
     await meetings.create(data);
     res.send("sucess");
   } catch (error: any) {
-    res.send(error.message);
+    res.status(501).send(error.message);
   }
 };
 
@@ -32,6 +32,16 @@ export const getMeetingById: Controller = async (req, res, next) => {
     const data = meetings.find({ _id: id });
     res.send(data);
   } catch (error: any) {
-    res.send(error.message);
+    res.status(501).send(error.message);
+  }
+};
+
+export const getMeetingByDate: Controller = async (req, res, next) => {
+  try {
+    const date = req.params.date;
+    const data = meetings.find({ timeStamps: new Date(date) });
+    res.send(data);
+  } catch (error: any) {
+    res.status(501).send(error.message);
   }
 };
