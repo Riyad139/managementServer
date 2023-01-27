@@ -11,6 +11,17 @@ export const getAllUser = async (req: Request, res: Response) => {
   }
 };
 
+export const getUsersByIds: Controller = async (req, res) => {
+  try {
+    const ids = req.body.ids;
+    const users = await user.find({ _id: { $in: ids } });
+    console.log(users);
+    res.send(users);
+  } catch (err: any) {
+    res.status(501).send(err.message);
+  }
+};
+
 export const createUser = async (req: Request, res: Response) => {
   const data = {
     name: req.body.userName,
@@ -23,8 +34,8 @@ export const createUser = async (req: Request, res: Response) => {
 };
 
 export const getUserById = async (req: Request, res: Response) => {
-  const id = req.params.uid;
   try {
+    const id = req.params.uid;
     const userId = await user.find({ _id: id });
     res.send(userId);
   } catch (err: any) {

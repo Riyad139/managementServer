@@ -24,6 +24,7 @@ import {
   deletUserById,
   getAllUser,
   getUserById,
+  getUsersByIds,
   updateUserById,
 } from "../Controllers/userController";
 
@@ -35,6 +36,7 @@ router
   .delete(deletUserById)
   .put(updateUserById);
 router.route("/user").get(getAllUser).post(createUser);
+router.route("/user/getByids").post(getUsersByIds);
 ////////////////////////////////////////////////////////////////////////////////////////
 ///route for comapnies /////////////////////////////////////////////////////////////////
 router.route("/company/addmembers/:id").post(addMembersToCompany);
