@@ -1,4 +1,4 @@
-import express, { Application, Request, Response, NextFunction } from "express";
+import express from "express";
 import addUserToReq from "./middleware/addUserToReq";
 import mongoose from "mongoose";
 import router from "./Route/route";
@@ -10,10 +10,6 @@ app.use(express.json());
 app.use(cookieParser());
 app.use(addUserToReq);
 app.use(router);
-
-// app.get("/", router);
-
-
 
 mongoose
   .connect("mongodb://localhost:27017")
