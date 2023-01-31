@@ -25,14 +25,14 @@ export const createCompany: Controller = async (req, res, next) => {
       domain: req.body.domain,
       name: req.body.name,
       logoUrl: req.body.logoUrl,
-      members: [{ userId: req.userr.id, role: "admin" }],
+      members: [{ userId: req.userr.id, role: "admin" }, ...req.body.members],
       projects: [""],
       createdBy: req.userr.name,
     };
     const comp = await company.create(data);
     // const member = { userId: req.userr.id, role: "admin" };
     // company.updateOne({ _id: comp._id }, { $push: { members: member } });
-    console.log(comp);
+
     res.send("success");
   } catch (err: any) {
     res.send(err.message);
@@ -41,8 +41,6 @@ export const createCompany: Controller = async (req, res, next) => {
 
 export const addMembersToCompany: Controller = async (req, res, next) => {
   try {
-    console.log(req.params.id);
-
     await company.updateOne(
       { _id: req.params.id },
       { $push: { members: req.body.users } }
