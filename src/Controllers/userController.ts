@@ -15,7 +15,6 @@ export const getUsersByIds: Controller = async (req, res) => {
   try {
     const ids = req.body.ids;
     const users = await user.find({ _id: { $in: ids } });
-    console.log(users);
     res.send(users);
   } catch (err: any) {
     res.status(501).send(err.message);
