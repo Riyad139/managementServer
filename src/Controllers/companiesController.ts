@@ -26,7 +26,7 @@ export const createCompany: Controller = async (req, res, next) => {
       name: req.body.name,
       logoUrl: req.body.logoUrl,
       members: [{ userId: req.userr.id, role: "admin" }, ...req.body.members],
-      projects: [""],
+      projects: [],
       createdBy: req.userr.name,
     };
     const comp = await company.create(data);
