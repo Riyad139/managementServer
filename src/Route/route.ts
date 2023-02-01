@@ -15,7 +15,7 @@ import {
   createProject,
   deleteProjectById,
   getAllProject,
-  getProjectById,
+  getProjectByIds,
   updateProjectById,
 } from "../Controllers/projectsController";
 import { createTask, getAllTask } from "../Controllers/taskController";
@@ -47,11 +47,9 @@ router.route("/company").get(getComapny).post(createCompany);
 ///route for projects//////////////////////////////////////////////////////////////////
 
 router.route("/projects").get(getAllProject).post(createProject);
-router
-  .route("/projects/:id")
-  .get(getProjectById)
-  .delete(deleteProjectById)
-  .put(updateProjectById);
+router.route("/projects/byIds").post(getProjectByIds);
+
+router.route("/projects/:id").delete(deleteProjectById).put(updateProjectById);
 
 ///////////////////////////////////////////////////////////////////////////////////////
 //route for tasks ////////////////////////////////////////////////////////////////////

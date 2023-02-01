@@ -11,10 +11,10 @@ export const getAllProject: Controller = async (req, res, next) => {
   }
 };
 
-export const getProjectById: Controller = async (req, res, next) => {
+export const getProjectByIds: Controller = async (req, res, next) => {
   try {
-    const id = req.params.id;
-    const data = await project.find({ _id: id });
+    const ids = req.body.projectIds;
+    const data = await project.find({ _id: { $in: { _id: ids } } });
     res.send(data);
   } catch (error: any) {
     res.send(error.message);
@@ -23,7 +23,6 @@ export const getProjectById: Controller = async (req, res, next) => {
 
 export const createProject: Controller = async (req, res, next) => {
   try {
-    console.log("awdad");
     const data = {
       name: req.body.name,
       coverImage: req.body.url,
@@ -34,7 +33,6 @@ export const createProject: Controller = async (req, res, next) => {
       assignedTo: req.body.userId,
       createdBy: req.userr.name,
     };
-    console.log(req.body.companyId);
 
     const proj = await project.create(data);
     const comp = await company.findOneAndUpdate(
