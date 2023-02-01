@@ -35,7 +35,7 @@ export const createUser = async (req: Request, res: Response) => {
 export const getUserById = async (req: Request, res: Response) => {
   try {
     const id = req.params.uid;
-    const userId = await user.find({ _id: id });
+    const userId = await user.findOne({ _id: id });
     res.send(userId);
   } catch (err: any) {
     res.send(err.message);

@@ -41,7 +41,6 @@ export const createProject: Controller = async (req, res, next) => {
       { _id: req.body.companyId },
       { $push: { projects: proj._id } }
     );
-    console.log(comp);
     res.send("success");
   } catch (error: any) {
     res.send(error.message);
