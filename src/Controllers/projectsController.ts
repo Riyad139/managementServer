@@ -1,5 +1,6 @@
 import mongoose from "mongoose";
 import project, { Iproject } from "../Models/ProjectModel";
+import company from "../Models/CompanyModel";
 
 export const getAllProject: Controller = async (req, res, next) => {
   try {
@@ -22,6 +23,7 @@ export const getProjectById: Controller = async (req, res, next) => {
 
 export const createProject: Controller = async (req, res, next) => {
   try {
+    console.log("awdad");
     const data = {
       name: req.body.name,
       coverImage: req.body.url,
@@ -32,7 +34,14 @@ export const createProject: Controller = async (req, res, next) => {
       assignedTo: req.body.userId,
       createdBy: req.userr.name,
     };
-    await project.create(data);
+    console.log(req.body.companyId);
+
+    const proj = await project.create(data);
+    const comp = await company.findOneAndUpdate(
+      { _id: req.body.companyId },
+      { $push: { projects: proj._id } }
+    );
+    console.log(comp);
     res.send("success");
   } catch (error: any) {
     res.send(error.message);
