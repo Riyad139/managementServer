@@ -18,7 +18,11 @@ import {
   getProjectByIds,
   updateProjectById,
 } from "../Controllers/projectsController";
-import { createTask, getAllTask } from "../Controllers/taskController";
+import {
+  addWorkedTime,
+  createTask,
+  getAllTask,
+} from "../Controllers/taskController";
 import {
   createUser,
   deletUserById,
@@ -55,6 +59,7 @@ router.route("/projects/:id").delete(deleteProjectById).put(updateProjectById);
 //route for tasks ////////////////////////////////////////////////////////////////////
 
 router.route("/tasks").get(getAllTask).post(createTask);
+router.route("/tasks/:id").post(addWorkedTime);
 
 /////////////////////////////////////////////////////////////////////////////////////
 ///route for meetings //////////////////////////////////////////////////////////////

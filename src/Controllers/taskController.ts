@@ -29,3 +29,23 @@ export const createTask: Controller = async (req, res, next) => {
     res.send(error.message);
   }
 };
+
+export const addWorkedTime: Controller = async (req, res, next) => {
+  try {
+    const id = req.params.id;
+    await Task.findOneAndUpdate(
+      { _id: id },
+      {
+        $push: {
+          workedTime: {
+            startTime: req.body.data.stTime,
+            endTime: req.body.data.enTime,
+          },
+        },
+      }
+    );
+    res.send("success");
+  } catch (err: any) {
+    res.status(500).send(err.message);
+  }
+};
