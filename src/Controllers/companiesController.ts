@@ -12,7 +12,7 @@ export const getComapny: Controller = async (req, res, next) => {
 export const getComapnyById: Controller = async (req, res, next) => {
   try {
     const id = req.params.id;
-    const data = await company.find({ _id: id });
+    const data = await company.findOne({ _id: id });
     res.send(data);
   } catch (err: any) {
     res.send(err.message);
