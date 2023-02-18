@@ -1,4 +1,5 @@
 import Task from "../Models/TaskModel";
+import Project from "../Models/ProjectModel";
 
 export const getAllTask: Controller = async (req, res, next) => {
   try {
@@ -11,20 +12,36 @@ export const getAllTask: Controller = async (req, res, next) => {
 
 export const createTask: Controller = async (req, res, next) => {
   try {
+    console.log("Hello");
     const data = {
       name: req.body.name,
       board: req.body.board,
       description: req.body.description,
-      label: req.body.label,
-      isDone: req.body.isDone,
+      tags: req.body.tags,
+      isDone: false,
       workedTime: [],
-      attachments: req.body.attachments,
+      attachments: [req.body.attachments],
       assignTo: req.body.assignTo,
       createdBy: req.userr.name,
       deadLine: new Date(req.body.deadLine),
     };
-    await Task.create(data);
+    const tas = await Task.create(data);
+    await Project.findOneAndUpdate(
+      { _id: req.body.projectId },
+      { $push: { tasks: tas._id } }
+    );
     res.send("success");
+  } catch (error: any) {
+    res.send(error.message);
+  }
+};
+
+export const getTaskByIds: Controller = async (req, res, next) => {
+  try {
+    const ids = req.body.taskIds;
+    console.log(ids);
+    const tasks = await Task.find({ _id: { $in: ids } });
+    res.send(tasks);
   } catch (error: any) {
     res.send(error.message);
   }
