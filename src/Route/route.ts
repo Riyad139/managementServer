@@ -22,6 +22,7 @@ import {
   addWorkedTime,
   createTask,
   getAllTask,
+  getTaskByIds,
 } from "../Controllers/taskController";
 import {
   createUser,
@@ -59,6 +60,7 @@ router.route("/projects/:id").delete(deleteProjectById).put(updateProjectById);
 //route for tasks ////////////////////////////////////////////////////////////////////
 
 router.route("/tasks").get(getAllTask).post(createTask);
+router.route("/tasks/byIds").post(getTaskByIds);
 router.route("/tasks/:id").post(addWorkedTime);
 
 /////////////////////////////////////////////////////////////////////////////////////
