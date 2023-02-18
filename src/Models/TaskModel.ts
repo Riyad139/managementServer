@@ -16,9 +16,7 @@ const TaskModel = new mongoose.Schema(
       require: [true, "A task need a description"],
       trim: true,
     },
-    label: {
-      type: String,
-    },
+    tags: [String],
     isDone: Boolean,
     workedTime: [
       {
