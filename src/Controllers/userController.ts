@@ -42,6 +42,7 @@ export const createUser = async (req: Request, res: Response) => {
       email: req.body.userEmail,
       password: passwordHased,
     };
+
     const us = await user.create(data);
     res.cookie("access-token", generateToken(us), {
       expires: Dayjs().add(2, "day").toDate(),
@@ -75,6 +76,15 @@ export const signInUser: Controller = async (req, res, next) => {
     } else res.status(403).send("Incorrect password");
   } catch (err: any) {
     res.status(501).send("Internal error");
+  }
+};
+
+export const signOut: Controller = async (req, res, next) => {
+  try {
+    res.clearCookie("access-token");
+    res.send("success");
+  } catch (Error: any) {
+    res.status(404).send("user Not found");
   }
 };
 

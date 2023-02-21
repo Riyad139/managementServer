@@ -31,6 +31,7 @@ import {
   getUserById,
   getUsersByIds,
   signInUser,
+  signOut,
   updateUserById,
 } from "../Controllers/userController";
 
@@ -44,6 +45,7 @@ router
 router.route("/user").get(getAllUser);
 router.route("/user/signup").post(createUser);
 router.route("/user/signin").post(signInUser);
+router.route("/user/logOut").post(signOut);
 
 router.route("/user/getByids").post(getUsersByIds);
 ////////////////////////////////////////////////////////////////////////////////////////
