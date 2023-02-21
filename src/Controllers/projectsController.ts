@@ -14,7 +14,7 @@ export const getAllProject: Controller = async (req, res, next) => {
 export const getProjectByIds: Controller = async (req, res, next) => {
   try {
     const ids = req.body.projectIds;
-    console.log(req.body.ids);
+
     const data = await project.find({ _id: { $in: ids } });
     res.send(data);
   } catch (error: any) {

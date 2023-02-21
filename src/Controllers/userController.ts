@@ -1,6 +1,8 @@
 import { Request, Response, Errback } from "express";
-
+import * as argon from "argon2";
+import * as jwt from "jsonwebtoken";
 import user from "../Models/users";
+import Dayjs from "dayjs";
 
 export const getAllUser = async (req: Request, res: Response) => {
   try {
@@ -21,15 +23,35 @@ export const getUsersByIds: Controller = async (req, res) => {
   }
 };
 
-export const createUser = async (req: Request, res: Response) => {
+const generateToken = (us: any) => {
   const data = {
-    name: req.body.userName,
-    email: req.body.userEmail,
-    profilePicture: req.body.userProfile,
-    descriptions: req.body.userDes,
+    id: us._id,
   };
-  await user.create(data);
-  res.send("success");
+
+  const salt = "YoNIggaThisIsASalt";
+
+  return jwt.sign(data, salt, { expiresIn: "24h" });
+};
+
+export const createUser = async (req: Request, res: Response) => {
+  try {
+    const passwordHased = await argon.hash(req.body.password);
+
+    const data = {
+      name: req.body.userName,
+      email: req.body.userEmail,
+      password: passwordHased,
+    };
+    const us = await user.create(data);
+    res.cookie("access-token", generateToken(us), {
+      expires: Dayjs().add(2, "day").toDate(),
+      httpOnly: true,
+    });
+
+    res.send("success");
+  } catch (error: any) {
+    res.status(501).send(error.message);
+  }
 };
 
 export const getUserById = async (req: Request, res: Response) => {

@@ -12,7 +12,6 @@ export const getAllTask: Controller = async (req, res, next) => {
 
 export const createTask: Controller = async (req, res, next) => {
   try {
-    console.log("Hello");
     const data = {
       name: req.body.name,
       board: req.body.board,
@@ -39,7 +38,7 @@ export const createTask: Controller = async (req, res, next) => {
 export const getTaskByIds: Controller = async (req, res, next) => {
   try {
     const ids = req.body.taskIds;
-    console.log(ids);
+
     const tasks = await Task.find({ _id: { $in: ids } });
     res.send(tasks);
   } catch (error: any) {
