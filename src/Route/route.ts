@@ -30,6 +30,7 @@ import {
   getAllUser,
   getUserById,
   getUsersByIds,
+  signInUser,
   updateUserById,
 } from "../Controllers/userController";
 
@@ -42,6 +43,8 @@ router
   .put(updateUserById);
 router.route("/user").get(getAllUser);
 router.route("/user/signup").post(createUser);
+router.route("/user/signin").post(signInUser);
+
 router.route("/user/getByids").post(getUsersByIds);
 ////////////////////////////////////////////////////////////////////////////////////////
 ///route for comapnies /////////////////////////////////////////////////////////////////
