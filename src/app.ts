@@ -5,10 +5,12 @@ import router from "./Route/route";
 import cookieParser from "cookie-parser";
 import cors from "cors";
 const app = express();
-app.use(cors());
+app.use(cors({ origin: "http://localhost:3000", credentials: true }));
 app.use(express.json());
 app.use(cookieParser());
-app.use(addUserToReq);
+//@ts-ignore
+
+app.use(addUserToReq.unless({ path: "/user/signup" }));
 app.use(router);
 
 mongoose
