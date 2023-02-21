@@ -5,6 +5,7 @@ const userModel = new mongoose.Schema({
   email: {
     type: String,
   },
+  password: String,
   profilePicture: String,
   descriptions: String,
 });

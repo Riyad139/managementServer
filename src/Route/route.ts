@@ -1,4 +1,4 @@
-import Express, { Router, Request, Response, NextFunction } from "express";
+import Express from "express";
 import {
   addMembersToCompany,
   createCompany,
@@ -40,7 +40,8 @@ router
   .get(getUserById)
   .delete(deletUserById)
   .put(updateUserById);
-router.route("/user").get(getAllUser).post(createUser);
+router.route("/user").get(getAllUser);
+router.route("/user/signup").post(createUser);
 router.route("/user/getByids").post(getUsersByIds);
 ////////////////////////////////////////////////////////////////////////////////////////
 ///route for comapnies /////////////////////////////////////////////////////////////////
