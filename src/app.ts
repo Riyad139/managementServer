@@ -10,7 +10,7 @@ app.use(express.json());
 app.use(cookieParser());
 //@ts-ignore
 
-app.use(addUserToReq.unless({ path: "/user/signup" }));
+app.use(addUserToReq.unless({ path: ["/user/signup", "/user/signin"] }));
 app.use(router);
 
 mongoose
