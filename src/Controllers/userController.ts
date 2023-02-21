@@ -54,11 +54,38 @@ export const createUser = async (req: Request, res: Response) => {
   }
 };
 
+export const signInUser: Controller = async (req, res, next) => {
+  try {
+    console.log("hello");
+    const data = {
+      email: req.body.email,
+      password: req.body.password,
+    };
+    console.log(data);
+    const client = await user.findOne({ email: data.email });
+    console.log(client);
+    if (!client?.password) return res.status(404).send("user not found");
+    const token = await argon.verify(client.password, data.password);
+    if (token) {
+      res.cookie("access-token", generateToken(client), {
+        expires: Dayjs().add(2, "day").toDate(),
+        httpOnly: true,
+      });
+      res.send("success");
+    } else res.status(403).send("Incorrect password");
+  } catch (err: any) {
+    res.status(501).send("Internal error");
+  }
+};
+
 export const getUserById = async (req: Request, res: Response) => {
   try {
-    const id = req.params.uid;
-    const userId = await user.findOne({ _id: id });
-    res.send(userId);
+    const salt = "YoNIggaThisIsASalt";
+    if (!req.headers.cookie) return res.status(404).send("user not found");
+    const data = jwt.verify(req.headers.cookie?.split("=")[1], salt);
+    //@ts-ignore
+    const us = await user.findById({ _id: data.id });
+    res.send(us);
   } catch (err: any) {
     res.send(err.message);
   }
