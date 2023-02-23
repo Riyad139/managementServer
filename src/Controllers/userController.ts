@@ -16,6 +16,7 @@ export const getAllUser = async (req: Request, res: Response) => {
 export const getUsersByIds: Controller = async (req, res) => {
   try {
     const ids = req.body.ids;
+
     const users = await user.find({ _id: { $in: ids } });
     res.send(users);
   } catch (err: any) {

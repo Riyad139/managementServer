@@ -2,7 +2,10 @@ import company from "../Models/CompanyModel";
 
 export const getComapny: Controller = async (req, res, next) => {
   try {
-    const data = await company.find();
+    const data = await company.find({
+      members: { $elemMatch: { userId: req.userr._id } },
+    });
+    console.log(data);
     res.send(data);
   } catch (err: any) {
     res.send(err.message);
@@ -30,8 +33,6 @@ export const createCompany: Controller = async (req, res, next) => {
       createdBy: req.userr.name,
     };
     const comp = await company.create(data);
-    // const member = { userId: req.userr.id, role: "admin" };
-    // company.updateOne({ _id: comp._id }, { $push: { members: member } });
 
     res.send("success");
   } catch (err: any) {
