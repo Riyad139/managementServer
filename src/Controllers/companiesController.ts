@@ -5,7 +5,6 @@ export const getComapny: Controller = async (req, res, next) => {
     const data = await company.find({
       members: { $elemMatch: { userId: req.userr._id } },
     });
-    console.log(data);
     res.send(data);
   } catch (err: any) {
     res.send(err.message);

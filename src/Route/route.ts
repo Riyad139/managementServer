@@ -37,16 +37,13 @@ import {
 
 const router = Express.Router();
 /// route for user ...
-router
-  .route("/user/:uid")
-  .get(getUserById)
-  .delete(deletUserById)
-  .put(updateUserById);
+// router.route("/user/:uid").delete(deletUserById);
 router.route("/user").get(getAllUser);
 router.route("/user/signup").post(createUser);
 router.route("/user/signin").post(signInUser);
 router.route("/user/logOut").post(signOut);
-
+router.route("/user/currUser").get(getUserById);
+router.route("/user/update").put(updateUserById);
 router.route("/user/getByids").post(getUsersByIds);
 ////////////////////////////////////////////////////////////////////////////////////////
 ///route for comapnies /////////////////////////////////////////////////////////////////

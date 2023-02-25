@@ -3,10 +3,23 @@ import * as argon from "argon2";
 import * as jwt from "jsonwebtoken";
 import user from "../Models/users";
 import Dayjs from "dayjs";
+import company from "../Models/CompanyModel";
 
 export const getAllUser = async (req: Request, res: Response) => {
   try {
-    const data = await user.find();
+    const comp = await company.find({
+      members: { $elemMatch: { userId: req.userr._id } },
+    });
+    const myset = new Set();
+    for (const cm of comp) {
+      if (cm.members)
+        for (const mm of cm.members) {
+          myset.add(mm.userId);
+        }
+    }
+    const ids = [...myset];
+
+    const data = await user.find({ _id: { $in: ids } });
     res.send(data);
   } catch (err: any) {
     res.send(err.message);
@@ -114,15 +127,14 @@ export const deletUserById = async (req: Request, res: Response) => {
 
 export const updateUserById = async (req: Request, res: Response) => {
   try {
-    const id = req.params.uid;
-    const userById = await user.findOne({ _id: id });
+    const userById = await user.findOne({ _id: req.userr._id });
     const data = {
       name: req.body.userName || userById?.name,
       email: req.body.userEmail || userById?.email,
       profilePicture: req.body.userProfile || userById?.profilePicture,
       descriptions: req.body.userDes || userById?.descriptions,
     };
-    await user.findOneAndUpdate({ _id: id }, data);
+    await user.findOneAndUpdate({ _id: req.userr._id }, data);
     res.send("success");
   } catch (err: any) {
     res.send(err.message);
