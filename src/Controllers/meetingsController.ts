@@ -3,6 +3,7 @@ import meetings from "../Models/meetings";
 export const getAllMeeting: Controller = async (req, res, next) => {
   try {
     const data = await meetings.find();
+
     res.send(data);
   } catch (error: any) {
     res.status(501).send(error.message);

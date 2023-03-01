@@ -1,7 +1,7 @@
 import mongoose, { Document } from "mongoose";
 export interface Imember {
-  userId: string;
-  roles: string;
+  userId?: string;
+  roles?: string;
 }
 export interface Icompany {
   domain?: string;

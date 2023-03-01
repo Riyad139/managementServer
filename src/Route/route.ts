@@ -32,7 +32,7 @@ import {
   getUsersByIds,
   signInUser,
   signOut,
-  updateUserById,
+  updateUser,
 } from "../Controllers/userController";
 
 const router = Express.Router();
@@ -43,7 +43,7 @@ router.route("/user/signup").post(createUser);
 router.route("/user/signin").post(signInUser);
 router.route("/user/logOut").post(signOut);
 router.route("/user/currUser").get(getUserById);
-router.route("/user/update").put(updateUserById);
+router.route("/user/update").put(updateUser);
 router.route("/user/getByids").post(getUsersByIds);
 ////////////////////////////////////////////////////////////////////////////////////////
 ///route for comapnies /////////////////////////////////////////////////////////////////

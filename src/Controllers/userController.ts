@@ -125,14 +125,22 @@ export const deletUserById = async (req: Request, res: Response) => {
   }
 };
 
-export const updateUserById = async (req: Request, res: Response) => {
+export const updateUser = async (req: Request, res: Response) => {
   try {
-    const userById = await user.findOne({ _id: req.userr._id });
+    const userById = req.userr;
     const data = {
       name: req.body.userName || userById?.name,
       email: req.body.userEmail || userById?.email,
       profilePicture: req.body.userProfile || userById?.profilePicture,
       descriptions: req.body.userDes || userById?.descriptions,
+      FirstName: req.body.FirstName || userById.FirstName,
+      SecondName: req.body.SecondName || userById.SecondName,
+      Gender: req.body.Gender || userById.Gender,
+      Jobtitle: req.body.Jobtitle || userById.Jobtitle,
+      Phone: req.body.Phone || userById.Phone,
+      Country: req.body.Country || userById.Country,
+      WorkedAt: req.body.WorkedAt || userById.WorkedAt,
+      preferences: req.body.preferences || userById.preferences,
     };
     await user.findOneAndUpdate({ _id: req.userr._id }, data);
     res.send("success");

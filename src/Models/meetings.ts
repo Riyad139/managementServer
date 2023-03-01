@@ -1,4 +1,15 @@
-import mongoose from "mongoose";
+import mongoose, { Document } from "mongoose";
+
+export interface Imeetings {
+  hostedBy?: string;
+  timeStamps?: Date;
+  title?: string;
+  duration?: number;
+  descriptions?: string;
+  invitedUser?: string[];
+}
+
+export interface ImeetingsDoc extends Imeetings, Document {}
 
 const meetingModel = new mongoose.Schema({
   hostedBy: String,
@@ -15,6 +26,6 @@ const meetingModel = new mongoose.Schema({
   invitedUser: [String],
 });
 
-const meetings = mongoose.model("meetings", meetingModel);
+const meetings = mongoose.model<ImeetingsDoc>("meetings", meetingModel);
 
 export default meetings;
