@@ -30,6 +30,7 @@ import {
   getAllUser,
   getUserById,
   getUsersByIds,
+  passwordChange,
   signInUser,
   signOut,
   updateUser,
@@ -45,6 +46,7 @@ router.route("/user/logOut").post(signOut);
 router.route("/user/currUser").get(getUserById);
 router.route("/user/update").put(updateUser);
 router.route("/user/getByids").post(getUsersByIds);
+router.route("/user/passwordChange").post(passwordChange);
 ////////////////////////////////////////////////////////////////////////////////////////
 ///route for comapnies /////////////////////////////////////////////////////////////////
 router.route("/company/addmembers/:id").post(addMembersToCompany);

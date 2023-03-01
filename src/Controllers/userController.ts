@@ -71,14 +71,11 @@ export const createUser = async (req: Request, res: Response) => {
 
 export const signInUser: Controller = async (req, res, next) => {
   try {
-    console.log("hello");
     const data = {
       email: req.body.email,
       password: req.body.password,
     };
-    console.log(data);
     const client = await user.findOne({ email: data.email });
-    console.log(client);
     if (!client?.password) return res.status(404).send("user not found");
     const token = await argon.verify(client.password, data.password);
     if (token) {
@@ -112,6 +109,23 @@ export const getUserById = async (req: Request, res: Response) => {
     res.send(us);
   } catch (err: any) {
     res.send(err.message);
+  }
+};
+
+export const passwordChange: Controller = async (req, res) => {
+  try {
+    const pass = req.body.OldPassword;
+    const validate = await argon.verify(req.userr.password, pass);
+    if (!validate) return res.status(503).send("password does not match");
+    const newPass = req.body.NewPassword;
+    const hashedPass = await argon.hash(newPass);
+    await user.findByIdAndUpdate(
+      { _id: req.userr._id },
+      { password: hashedPass }
+    );
+    res.send("success");
+  } catch (error: any) {
+    res.status(501).send(error.message);
   }
 };
 
