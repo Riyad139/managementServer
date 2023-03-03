@@ -35,13 +35,14 @@ import {
   signOut,
   updateUser,
 } from "../Controllers/userController";
+import isUserLoggedIn from "../middleware/isUserLoggedIn";
 
 const router = Express.Router();
 /// route for user ...
 // router.route("/user/:uid").delete(deletUserById);
 router.route("/user").get(getAllUser);
-router.route("/user/signup").post(createUser);
-router.route("/user/signin").post(signInUser);
+router.route("/user/signup").post(isUserLoggedIn, createUser);
+router.route("/user/signin").post(isUserLoggedIn, signInUser);
 router.route("/user/logOut").post(signOut);
 router.route("/user/currUser").get(getUserById);
 router.route("/user/update").put(updateUser);
