@@ -22,6 +22,7 @@ import {
   addWorkedTime,
   createTask,
   getAllTask,
+  getDailyUpadetTask,
   getTaskByIds,
 } from "../Controllers/taskController";
 import {
@@ -68,6 +69,7 @@ router.route("/projects/:id").delete(deleteProjectById).put(updateProjectById);
 router.route("/tasks").get(getAllTask).post(createTask);
 router.route("/tasks/byIds").post(getTaskByIds);
 router.route("/tasks/:id").post(addWorkedTime);
+router.route("/task/getTodaysTask").get(getDailyUpadetTask);
 
 /////////////////////////////////////////////////////////////////////////////////////
 ///route for meetings //////////////////////////////////////////////////////////////

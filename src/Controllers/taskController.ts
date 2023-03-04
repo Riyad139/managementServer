@@ -1,5 +1,6 @@
 import Task from "../Models/TaskModel";
 import Project from "../Models/ProjectModel";
+import dayjs from "dayjs";
 
 export const getAllTask: Controller = async (req, res, next) => {
   try {
@@ -31,7 +32,18 @@ export const createTask: Controller = async (req, res, next) => {
     );
     res.send("success");
   } catch (error: any) {
-    res.send(error.message);
+    res.status(500).send(error.message);
+  }
+};
+
+export const getDailyUpadetTask: Controller = async (req, res, next) => {
+  try {
+    const data = await Task.find({
+      updatedAt: { $gte: dayjs().startOf("day"), $lte: dayjs().endOf("day") },
+    });
+    res.send(data);
+  } catch (error: any) {
+    res.status(500).send("something went wrong");
   }
 };
 
