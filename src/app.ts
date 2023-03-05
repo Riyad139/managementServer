@@ -15,7 +15,7 @@ app.use(cookieParser());
 //@ts-ignore
 //mongoose.connect(process.env.DB_URL).then((ms: any) => console.log("success"));
 
-app.get("/test", (req, res, next) => {
+app.get("/", (req, res, next) => {
   res.send("Hello");
 });
 
