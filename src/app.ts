@@ -4,6 +4,7 @@ import express from "express";
 import router from "./Route/route";
 import mongoose from "mongoose";
 import cors from "cors";
+import addUserToReq from "./middleware/addUserToReq";
 
 dotenv.config();
 
