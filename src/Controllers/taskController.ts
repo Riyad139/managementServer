@@ -11,6 +11,15 @@ export const getAllTask: Controller = async (req, res, next) => {
   }
 };
 
+export const updateTaskToCompleted: Controller = async (req, res, next) => {
+  try {
+    const id = req.body.Tid;
+    await Task.findOneAndUpdate({ _id: id }, { isDone: req.body.status });
+  } catch (error) {
+    res.status(500).send(error);
+  }
+};
+
 export const createTask: Controller = async (req, res, next) => {
   try {
     const data = {

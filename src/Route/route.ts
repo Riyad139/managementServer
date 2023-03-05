@@ -24,6 +24,7 @@ import {
   getAllTask,
   getDailyUpadetTask,
   getTaskByIds,
+  updateTaskToCompleted,
 } from "../Controllers/taskController";
 import {
   createUser,
@@ -66,7 +67,7 @@ router.route("/projects/:id").delete(deleteProjectById).put(updateProjectById);
 ///////////////////////////////////////////////////////////////////////////////////////
 //route for tasks ////////////////////////////////////////////////////////////////////
 
-router.route("/tasks").get(getAllTask).post(createTask);
+router.route("/tasks").get(getAllTask).post(createTask).put(updateTaskToCompleted);
 router.route("/tasks/byIds").post(getTaskByIds);
 router.route("/tasks/:id").post(addWorkedTime);
 router.route("/task/getTodaysTask").get(getDailyUpadetTask);
