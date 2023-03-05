@@ -14,7 +14,7 @@ app.use(cookieParser());
 
 //@ts-ignore
 app.use(addUserToReq.unless({ path: ["/user/signup", "/user/signin"] }));
-app.use(router);
+app.use("/api/" + router);
 //@ts-ignore
 mongoose.connect(process.env.DB_URL).then((ms: any) => console.log("success"));
 
