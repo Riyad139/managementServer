@@ -47,7 +47,9 @@ export const createTask: Controller = async (req, res, next) => {
 
 export const getDailyUpadetTask: Controller = async (req, res, next) => {
   try {
+    const id = req.body.taskIds;
     const data = await Task.find({
+      _id: { $in: id },
       updatedAt: { $gte: dayjs().startOf("day"), $lte: dayjs().endOf("day") },
     });
     res.send(data);

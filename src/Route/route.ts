@@ -67,10 +67,14 @@ router.route("/projects/:id").delete(deleteProjectById).put(updateProjectById);
 ///////////////////////////////////////////////////////////////////////////////////////
 //route for tasks ////////////////////////////////////////////////////////////////////
 
-router.route("/tasks").get(getAllTask).post(createTask).put(updateTaskToCompleted);
+router
+  .route("/tasks")
+  .get(getAllTask)
+  .post(createTask)
+  .put(updateTaskToCompleted);
 router.route("/tasks/byIds").post(getTaskByIds);
 router.route("/tasks/:id").post(addWorkedTime);
-router.route("/task/getTodaysTask").get(getDailyUpadetTask);
+router.route("/task/getTodaysTask").post(getDailyUpadetTask);
 
 /////////////////////////////////////////////////////////////////////////////////////
 ///route for meetings //////////////////////////////////////////////////////////////
