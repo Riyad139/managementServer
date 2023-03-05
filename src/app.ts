@@ -13,8 +13,11 @@ app.use(cors({ origin: "http://localhost:3000", credentials: true }));
 app.use(express.json());
 app.use(cookieParser());
 
-//@ts-ignore
-app.use(addUserToReq.unless({ path: ["/user/signup", "/user/signin"] }));
+app.use(
+  "/api",
+  //@ts-ignore
+  addUserToReq.unless({ path: ["/user/signup", "/user/signin"] })
+);
 app.use("/api", router);
 mongoose.set("strictQuery", false);
 //@ts-ignore
