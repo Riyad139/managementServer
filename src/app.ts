@@ -15,7 +15,7 @@ app.use(cookieParser());
 app.use(
   "/api",
   //@ts-ignore
-  addUserToReq.unless({ path: ["/user/signup", "/user/signin"] })
+  addUserToReq.unless({ path: ["/api/user/signup", "/api/user/signin"] })
 );
 app.use("/api", router);
 
