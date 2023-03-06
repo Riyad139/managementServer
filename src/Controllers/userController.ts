@@ -94,7 +94,11 @@ export const signInUser: Controller = async (req, res, next) => {
 
 export const signOut: Controller = async (req, res, next) => {
   try {
-    res.clearCookie("access-token");
+    res.clearCookie("access-token", {
+      httpOnly: true,
+      sameSite: "none",
+      secure: true,
+    });
     res.send("success");
   } catch (Error: any) {
     res.status(404).send("user Not found");
