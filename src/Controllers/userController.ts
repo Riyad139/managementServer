@@ -79,9 +79,10 @@ export const signInUser: Controller = async (req, res, next) => {
     if (!client?.password) return res.status(404).send("user not found");
     const token = await argon.verify(client.password, data.password);
     if (token) {
-      res.cookie("access-token", generateToken(client), {
+      res.status(200).cookie("access-token", generateToken(client), {
         expires: Dayjs().add(2, "day").toDate(),
         httpOnly: true,
+        sameSite: "none",
       });
       res.send("success");
     } else res.status(403).send("Incorrect password");
