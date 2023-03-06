@@ -83,6 +83,7 @@ export const signInUser: Controller = async (req, res, next) => {
         expires: Dayjs().add(2, "day").toDate(),
         httpOnly: true,
         sameSite: "none",
+        secure: true,
       });
       res.send("success");
     } else res.status(403).send("Incorrect password");
