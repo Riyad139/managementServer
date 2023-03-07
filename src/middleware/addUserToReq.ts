@@ -3,7 +3,11 @@ import * as Jwt from "jsonwebtoken";
 import { unless } from "express-unless";
 const addUserToReq: Controller = async (req, res, next) => {
   try {
-    if (req.path == "/api/user/signin" && req.method == "POST") return next();
+    if (
+      (req.path == "/api/user/signin" || req.path == "/api/user/signup") &&
+      req.method == "POST"
+    )
+      return next();
     const salt = "YoNIggaThisIsASalt";
     if (!req.headers.cookie) return res.status(404).send("User not found");
     const id = Jwt.verify(req.headers.cookie.split("=")[1], salt);
@@ -13,7 +17,7 @@ const addUserToReq: Controller = async (req, res, next) => {
     req.userr = use;
     next();
   } catch (error: any) {
-    res.status(501).send("Internal error");
+    res.status(404).send("Internal error");
   }
 };
 //@ts-ignore
