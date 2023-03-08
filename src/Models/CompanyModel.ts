@@ -20,7 +20,7 @@ const model = new mongoose.Schema(
   {
     domain: {
       type: String,
-
+      unique: false,
       require: [true, "Must have a domain name"],
     },
     name: {

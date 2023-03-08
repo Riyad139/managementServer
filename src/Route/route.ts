@@ -7,6 +7,10 @@ import {
   updateCompanyById,
 } from "../Controllers/companiesController";
 import {
+  createDummydata,
+  createGuestUser,
+} from "../Controllers/GuestController";
+import {
   createMeetings,
   getAllMeeting,
   getMeetingByDate,
@@ -81,5 +85,9 @@ router.route("/task/getTodaysTask").post(getDailyUpadetTask);
 
 router.route("/meetings").get(getAllMeeting).post(createMeetings);
 router.route("/meetings/:date").get(getMeetingByDate);
+
+//////////////////////////////////////////////////////
+router.route("/guest").post(createGuestUser);
+router.route("/guest/create").post(createDummydata);
 
 export default router;
