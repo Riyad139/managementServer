@@ -22,7 +22,7 @@ export const getAllUser = async (req: Request, res: Response) => {
     const data = await user.find({ _id: { $in: ids } });
     res.send(data);
   } catch (err: any) {
-    res.send(err.message);
+    res.status(501).send(err.message);
   }
 };
 
@@ -42,7 +42,7 @@ const generateToken = (us: any) => {
     id: us._id,
   };
 
-  const salt = "YoNIggaThisIsASalt";
+  const salt = process.env.SALT as string;
 
   return jwt.sign(data, salt, { expiresIn: "24h" });
 };
@@ -59,8 +59,10 @@ export const createUser = async (req: Request, res: Response) => {
 
     const us = await user.create(data);
     res.cookie("access-token", generateToken(us), {
-      expires: Dayjs().add(2, "day").toDate(),
+      expires: Dayjs().add(1, "day").toDate(),
+      sameSite: "none",
       httpOnly: true,
+      secure: true,
     });
 
     res.send("success");
@@ -165,6 +167,6 @@ export const updateUser = async (req: Request, res: Response) => {
     await user.findOneAndUpdate({ _id: req.userr._id }, data);
     res.send("success");
   } catch (err: any) {
-    res.send(err.message);
+    res.status(501).send(err.message);
   }
 };
