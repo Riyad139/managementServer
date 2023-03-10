@@ -26,7 +26,7 @@ export const createGuestUser: Controller = async (req, res, next) => {
 
     res.cookie("access-token", token, {
       expires: Dayjs().add(30, "day").toDate(),
-      sameSite: "lax",
+      sameSite: "none",
       httpOnly: true,
 
       secure: true,
