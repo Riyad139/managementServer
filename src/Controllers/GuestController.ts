@@ -6,6 +6,19 @@ import meetings from "../Models/meetings";
 import Task from "../Models/TaskModel";
 import Dayjs from "dayjs";
 
+function makeid(length: number) {
+  let result = "";
+  const characters =
+    "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
+  const charactersLength = characters.length;
+  let counter = 0;
+  while (counter < length) {
+    result += characters.charAt(Math.floor(Math.random() * charactersLength));
+    counter += 1;
+  }
+  return result;
+}
+
 export const createGuestUser: Controller = async (req, res, next) => {
   try {
     const password = req.body.password;
@@ -26,7 +39,7 @@ export const createGuestUser: Controller = async (req, res, next) => {
 
     res.cookie("access-token", token, {
       expires: Dayjs().add(30, "day").toDate(),
-      sameSite: "none",
+      sameSite: "lax",
       httpOnly: true,
 
       secure: true,
@@ -36,19 +49,6 @@ export const createGuestUser: Controller = async (req, res, next) => {
     res.status(501).send("error");
   }
 };
-
-function makeid(length: number) {
-  let result = "";
-  const characters =
-    "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
-  const charactersLength = characters.length;
-  let counter = 0;
-  while (counter < length) {
-    result += characters.charAt(Math.floor(Math.random() * charactersLength));
-    counter += 1;
-  }
-  return result;
-}
 
 export const createDummydata: Controller = async (req, res, next) => {
   try {
