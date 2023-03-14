@@ -60,7 +60,7 @@ export const createUser = async (req: Request, res: Response) => {
     const us = await user.create(data);
     res.cookie("access-token", generateToken(us), {
       expires: Dayjs().add(1, "day").toDate(),
-      sameSite: "none",
+      sameSite: "lax",
       httpOnly: true,
       secure: true,
     });
@@ -84,7 +84,7 @@ export const signInUser: Controller = async (req, res, next) => {
       res.status(200).cookie("access-token", generateToken(client), {
         expires: Dayjs().add(2, "day").toDate(),
         httpOnly: true,
-        sameSite: "none",
+        sameSite: "lax",
         secure: true,
       });
       res.send("success");
